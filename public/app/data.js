@@ -1,50 +1,16 @@
-// Unified extension data — one entry per extension with both Chrome and Edge IDs
-// All entries identified and merged manually — 25 allowlist + 17 blocklist
+// Unified extension data — one entry per extension with both Chrome and Edge IDs.
+// Populated automatically as you add extensions via the UI.
+// You can also pre-populate this file manually using the format below.
+//
+// mode values:
+//   "allowed"         — extension is explicitly allowed
+//   "blocked"         — extension is explicitly blocked
+//   "force_installed" — extension is silently installed and cannot be removed
+//
+// Example entry:
+//   { name: "uBlock Origin", chromeId: "cjpalhdlnbpafiamejdnhcphjbkeiagm", edgeId: "odfafepnkmbhccpbejgmmehpkigpeaji", mode: "allowed" }
+
 window.INITIAL_DATA = {
-  allowlist: [
-    { name: "AdBlock",                                        chromeId: "gighmmpiobklfepjocnamgkkbiglidom", edgeId: "ndcileolkflehcjpmjnfbnaibdcgglog", mode: "allowed" },
-    { name: "Adblock Plus",                                   chromeId: "cfhdojbkjhnklbpkdaibdccddilifddb", edgeId: "gmgoamodcdcjnbaobigkjelfplakmdhh", mode: "allowed" },
-    { name: "Adobe Acrobat",                                  chromeId: "efaidnbmnnnibpcajpcglclefindmkaj", edgeId: "elhekieabhbkpmcefcoobjddigjcaadp", mode: "allowed" },
-    { name: "Browsec VPN",                                    chromeId: "omghfjlpggmjjaagoclmmobgdodcjboh", edgeId: "fjnehcbecaggobjholekjijaaekbnlgj", mode: "allowed" },
-    { name: "Google Translate",                               chromeId: "aapbdbdomjkkjkaonfhkkikfgjllcleb", edgeId: "aapbdbdomjkkjkaonfhkkikfgjllcleb", mode: "allowed" },
-    { name: "uBlock Origin Lite",                             chromeId: "ddkjiahejlhfcafbddmgiahcphecmpfh", edgeId: "cimighlppcgcoapaliogpjjdehbnofhn", mode: "allowed" },
-    { name: "Simple Translate",                               chromeId: "ibplnjkanclpjokhdolnendpplpjiace", edgeId: "cllnohpbfenopiakdcjmjcbaeapmkcdl", mode: "allowed" },
-    { name: "ІІТ Користувач ЦСК-1. Бібл. підп. (web-р.)",   chromeId: "jffafkigfgmjafhpkoibhfefeaebmccg", edgeId: "jffafkigfgmjafhpkoibhfefeaebmccg", mode: "allowed" },
-    { name: "Ashby",                                          chromeId: "ncbbpdnmfeilfegjpilgdjajafbcganl", edgeId: "ncbbpdnmfeilfegjpilgdjajafbcganl", mode: "allowed" },
-    { name: "Bitwarden",                                      chromeId: "nngceckbapebfimnlniiiahkandclblb", edgeId: "jbkfoedolllekgbhcbcoahefnbanhhlh", mode: "allowed" },
-    { name: "Fortinet Privileged Access Agent",               chromeId: "gkmiciealelfckimnoopefeplibjciih", edgeId: "pbbjjnjikpfdhmafpjooclchedndmkdl", mode: "allowed" },
-    { name: "Google Analytics Opt-out Add-on (by Google)",    chromeId: "fllaojicojecljbmefodhfapmkghcbnh", edgeId: "",                                 mode: "allowed" },
-    { name: "Proton VPN",                                     chromeId: "jplgfhpmjnbigmhklmmbgecoobifkmpa", edgeId: "jplgfhpmjnbigmhklmmbgecoobifkmpa", mode: "allowed" },
-    { name: "Grammarly",                                      chromeId: "kbfnbcaeplbcioakkpcpgfkobkghlhen", edgeId: "cnlefmmeadmemmdciolhbnfeacpdfbkd", mode: "allowed" },
-    { name: "Level up for Dynamics 365/Power Apps",           chromeId: "bjnkkhimoaclnddigpphpgkfgeggokam", edgeId: "mdjlgdkgmhlmcikdmeehcecolehipicf", mode: "allowed" },
-    { name: "Microsoft Power Automate",                       chromeId: "ljglajjnnkapghbckkcmodicjhacbfhk", edgeId: "kagpabjoboikccfdghpdlaaopmgpgfdc", mode: "allowed" },
-    { name: "Microsoft Single Sign On",                       chromeId: "ppnbnpeolgkicgegkbkbjmhlideopiji", edgeId: "",                                 mode: "allowed" },
-    { name: "DeepL",                                          chromeId: "cofdbpoegempjloogbagkncekinflcnj", edgeId: "fancfknaplihpclbhbpclnmmjcjanbaf", mode: "allowed" },
-    { name: "Fortinet Support Tool",                          chromeId: "jbeeicmopdjjhdjnikmmhlebpkllhjki", edgeId: "",                                 mode: "allowed" },
-    { name: "ZAP by Checkmarx Recorder",                      chromeId: "belmenkmkfloppjbbgibipmgcmnkaiki", edgeId: "okgkpllibfpmngdhhponlojjgeabfeee", mode: "allowed" },
-    { name: "ModBox",                                         chromeId: "ohlllhelckdghejidfhlklehaoibjkla", edgeId: "bhfknnalpacdchjfepogpgiekkljgpfh", mode: "allowed" },
-    { name: "NoScript",                                       chromeId: "doojmbjmlfjjnbmnoijecmcbfeoakpjm", edgeId: "debdhlbmgmkkfjpcglcbjadbhhekgfjh", mode: "allowed" },
-    { name: "Microsoft Defender Browser Protection",          chromeId: "bkbeeeffjjeopflfhgeknacdieedcoml", edgeId: "",                                 mode: "allowed" },
-    { name: "React Developer Tools",                          chromeId: "fmkadmapgofadopljbjfkapdkoienihi", edgeId: "gpphkfbcpidddadnkolkpfckpihlkkil", mode: "allowed" },
-    { name: "Microsoft Purview",                              chromeId: "echcggldkblhodogklpincgchnpgcdco", edgeId: "lcmcgbabdcbngcbcfabdncmoppkajglo", mode: "force_installed" },
-  ],
-  blocklist: [
-    { name: "TorrServer Adder",           chromeId: "ihphookhabmjbgccflngglmidjloeefg", edgeId: "" },
-    { name: "Vulners Web Scanner",        chromeId: "dgdelbjijbkahooafjfnonijppnffhmd", edgeId: "" },
-    { name: "RuTracker plugin",           chromeId: "fddjpichkajmnkjhcmpbbjdmmcodnkej", edgeId: "" },
-    { name: "Urban VPN Proxy",            chromeId: "eppiocemhmnlbhjplcgkofciiegomcon", edgeId: "" },
-    { name: "Torrent Scanner",            chromeId: "aegnopegbbhjeeiganiajffnalhlkkjb", edgeId: "" },
-    { name: "Voice Notepad",              chromeId: "fcmhccenbjblgnbblnlhmebpknoednjd", edgeId: "" },
-    { name: "Gismeteo",                   chromeId: "bfegaehidkkcfaikpaijcdahnpikhobf", edgeId: "" },
-    { name: "Miro Web Clipper",           chromeId: "ecfnenchgjbicgaooadfdmcojkcmjblk", edgeId: "" },
-    { name: "Lightshot",                  chromeId: "mbniclmhobmnbdlbpiphghaielnnpgdp", edgeId: "" },
-    { name: "Online Radio",              chromeId: "ccjcjodilinmaelnmmombddiaeomcfgc", edgeId: "" },
-    { name: "Online speech recognition",  chromeId: "pehlbpmpoabkgenppepoaihkacolpdcf", edgeId: "" },
-    { name: "Grass",                      chromeId: "lckcakbbajecfhfkfmhepciakdfjcagb", edgeId: "" },
-    { name: "WPS PDF",                    chromeId: "mjdgandcagmikhlbjnilkmfnjeamfikk", edgeId: "" },
-    { name: "AI Sidebar",                 chromeId: "inhcgfpbfdjbjogdfjbclgolkmhnooop", edgeId: "" },
-    { name: "Chat GPT for Chrome",        chromeId: "fnmihdojmnkclgjpcoonokmkhjpjechg", edgeId: "" },
-    { name: "Google as start page",       chromeId: "kbjopffcocgcnkpigpnnmpcoimhjbjmb", edgeId: "" },
-    { name: "Image Downloader",           chromeId: "daeljdgmllhgmbdkpgnaojldjkdgkbjg", edgeId: "" },
-  ],
+  allowlist: [],
+  blocklist: [],
 };
