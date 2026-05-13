@@ -1,0 +1,13 @@
+services:
+  epm:
+    build: .
+    container_name: extension-policy-manager
+    ports:
+      - "8080:8080"
+    volumes:
+      - epm-data:/app/data
+      - ./public:/app/public:ro
+    restart: unless-stopped
+
+volumes:
+  epm-data:
