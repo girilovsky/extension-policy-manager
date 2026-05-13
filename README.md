@@ -102,6 +102,72 @@ Data is persisted in the `epm-data` named volume. The `public/` directory is mou
 
 ---
 
+## Policy structure
+
+EPM generates five policy artefacts from a single extension list.
+
+### Windows — Settings Catalog JSON
+
+Two JSON files are produced (one per browser — Chrome and Edge), structured as Intune `ExtensionSettings` objects. Each file is ready to paste into a Settings Catalog policy under **Computer Configuration → Microsoft Edge / Google Chrome → Extensions → Extension management settings**.
+
+**Allowlist logic** — all extensions are blocked by default (`"*": { "installation_mode": "blocked" }`). Each explicitly allowed extension is set to `allowed` or `force_installed`:
+
+```json
+{
+  "*": { "installation_mode": "blocked" },
+  "nngceckbapebfimnlniiiahkandclblb": { "installation_mode": "allowed" },
+  "echcggldkblhodogklpincgchnpgcdco": {
+    "installation_mode": "force_installed",
+    "update_url": "https://clients2.google.com/service/update2/crx"
+  }
+}
+```
+
+**Blocklist logic** — only the listed extensions are marked `removed`. All others remain unaffected (use alongside an allowlist policy, or standalone):
+
+```json
+{
+  "cjpalhdlnbpafiamejdnhcphjbkeiagm": { "installation_mode": "removed" }
+}
+```
+
+### macOS — `.mobileconfig` profiles
+
+Two `.mobileconfig` files are produced:
+
+| File | Contents |
+|---|---|
+| `MacOS-Allow.mobileconfig` | Chrome + Edge `ExtensionSettings` allowlist in a single profile |
+| `MacOS-Block.mobileconfig` | Chrome + Edge `ExtensionSettings` blocklist in a single profile |
+
+Each profile uses the `com.google.Chrome` and `com.microsoft.Edge` Managed Preferences payload types. Deploy via Intune → **macOS → Configuration profiles → Custom** (upload the `.mobileconfig` directly).
+
+### Customising the macOS profile
+
+Add a `window.POLICY_CONFIG` block to `public/index.html` **before** the other scripts to override the defaults baked into `generators.js`:
+
+```html
+<script>
+window.POLICY_CONFIG = {
+  orgDomain:      'com.example',       // PayloadIdentifier prefix
+  organization:   'Example Corp IT',
+  blockedMessage: 'Contact helpdesk to request an extension.',
+  // Optional: replace with crypto.randomUUID() output for production deployments
+  uuidChromeAllow:     'YOUR-UUID-HERE',
+  uuidEdgeAllow:       'YOUR-UUID-HERE',
+  uuidChromeBlock:     'YOUR-UUID-HERE',
+  uuidEdgeBlock:       'YOUR-UUID-HERE',
+  uuidRootChromeAllow: 'YOUR-UUID-HERE',
+  uuidRootEdgeAllow:   'YOUR-UUID-HERE',
+  uuidRootBlock:       'YOUR-UUID-HERE',
+};
+</script>
+```
+
+> **Note:** UUIDs must be unique per profile. Reusing a UUID across different profiles on the same device will cause macOS to treat them as the same payload and silently overwrite one.
+
+---
+
 ## PowerShell alternative
 
 `Deploy-ExtensionPolicies.ps1` is a standalone script that deploys exported policy files directly from the command line — no web UI required. Useful for CI/CD or air-gapped environments.
