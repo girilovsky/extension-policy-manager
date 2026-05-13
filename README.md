@@ -108,9 +108,11 @@ EPM generates five policy artefacts from a single extension list.
 
 ### Windows — Settings Catalog JSON
 
-Two JSON files are produced (one per browser — Chrome and Edge), structured as Intune `ExtensionSettings` objects. Each file is ready to paste into a Settings Catalog policy under **Computer Configuration → Microsoft Edge / Google Chrome → Extensions → Extension management settings**.
+Two JSON files are produced (one per browser — Chrome and Edge), structured as Intune `ExtensionSettings` objects. Each file is ready to paste into a Settings Catalog policy under:
+- **Google Chrome → Extensions → Extension management settings (Device)**
+- **Microsoft Edge → Extensions → Configure extension management settings (Device)**
 
-**Allowlist logic** — all extensions are blocked by default (`"*": { "installation_mode": "blocked" }`). Each explicitly allowed extension is set to `allowed` or `force_installed`:
+**Allowlist** — deployed at **Device** scope. All extensions are blocked by default; explicitly allowed ones are set to `allowed` or `force_installed`:
 
 ```json
 {
@@ -123,7 +125,7 @@ Two JSON files are produced (one per browser — Chrome and Edge), structured as
 }
 ```
 
-**Blocklist logic** — only the listed extensions are marked `removed`. All others remain unaffected (use alongside an allowlist policy, or standalone):
+**Blocklist** — deployed at **User** scope to avoid conflicts with device-level allowlist policies. Only the listed extensions are removed; all others remain unaffected:
 
 ```json
 {
