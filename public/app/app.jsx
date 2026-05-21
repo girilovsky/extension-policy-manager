@@ -1972,7 +1972,14 @@ function DeployPanel({ isBlock, data, onClose, onDeployed, scrollToTop }) {
     setDeployProgress('Connecting to Intune…');
     try {
       const conf = allConfigs.find(c => c.name === configName);
-      const savedMap = conf?.policyMap || {};
+      let savedMap = conf?.policyMap || {};
+      if (!Object.values(savedMap).some(Boolean)) {
+        try {
+          const url = configName ? `/api/policy-map?config=${encodeURIComponent(configName)}` : '/api/policy-map';
+          const r = await fetch(url);
+          if (r.ok) savedMap = await r.json();
+        } catch {}
+      }
       const policies = await window.INTUNE.listPolicies({ configName, nameFilter: POLICY_NAME_FILTER });
       setIntunePolicies(policies);
       const LEGACY_KEYS = { 'mac-allow': ['mac-allow-chrome', 'mac-allow-edge'] };
